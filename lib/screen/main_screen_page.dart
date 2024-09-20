@@ -11,10 +11,7 @@ class MainScreenPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text(
-            'Wisata Purwokerto',
-            style: TextStyle(fontSize: 25),
-          ),
+          title: const Text('Wisata Purwokerto'),
         ),
         body: LayoutBuilder(
           builder: (context, constraints) {

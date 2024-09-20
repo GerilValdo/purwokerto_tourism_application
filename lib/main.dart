@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         appBarTheme: AppBarTheme(
           backgroundColor: Colors.blue[300],
-          titleTextStyle: TextStyle(color: Colors.white),
+          titleTextStyle: TextStyle(color: Colors.white, fontSize: 25),
         ),
       ),
     );

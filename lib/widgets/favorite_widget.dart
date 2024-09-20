@@ -13,7 +13,7 @@ class _FavoriteWidgetState extends State<FavoriteWidget> {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-        iconSize: 35,
+        iconSize: 25,
         onPressed: () {
           setState(() {
             isFavorite = !isFavorite;
