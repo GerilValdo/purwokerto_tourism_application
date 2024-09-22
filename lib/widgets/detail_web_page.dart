@@ -3,10 +3,23 @@ import 'package:flutter/material.dart';
 import '../models/tourism_place.dart';
 import '../widgets/favorite_widget.dart';
 
-class DetailWebPage extends StatelessWidget {
+class DetailWebPage extends StatefulWidget {
   final TourismPlace place;
 
   const DetailWebPage({required this.place, super.key});
+
+  @override
+  State<DetailWebPage> createState() => _DetailWebPageState();
+}
+
+final _scrollC = ScrollController();
+
+class _DetailWebPageState extends State<DetailWebPage> {
+  @override
+  void dispose() {
+    _scrollC.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,23 +46,28 @@ class DetailWebPage extends StatelessWidget {
                     children: [
                       ClipRRect(
                           borderRadius: BorderRadius.circular(25),
-                          child: Image.asset(place.imageAsset)),
+                          child: Image.asset(widget.place.imageAsset)),
                       SizedBox(height: 10),
-                      SizedBox(
-                        height: 150,
-                        child: ListView.builder(
-                          itemCount: place.imageUrls.length,
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding: const EdgeInsets.all(4.0),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(20),
-                                child: Image.network(
-                                    place.imageUrls[index].toString()),
-                              ),
-                            );
-                          },
+                      Scrollbar(
+                        controller: _scrollC,
+                        child: Container(
+                          height: 150,
+                          padding: EdgeInsets.only(bottom: 16),
+                          child: ListView.builder(
+                            controller: _scrollC,
+                            itemCount: widget.place.imageUrls.length,
+                            scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(20),
+                                  child: Image.network(
+                                      widget.place.imageUrls[index].toString()),
+                                ),
+                              );
+                            },
+                          ),
                         ),
                       ),
                     ],
@@ -65,7 +83,7 @@ class DetailWebPage extends StatelessWidget {
                       SizedBox(
                         width: double.infinity,
                         child: Text(
-                          place.name,
+                          widget.place.name,
                           textAlign: TextAlign.center,
                           style: const TextStyle(
                               fontSize: 30,
@@ -78,7 +96,7 @@ class DetailWebPage extends StatelessWidget {
                           Icon(Icons.calendar_month_outlined),
                           SizedBox(width: 10),
                           Text(
-                            place.openDays,
+                            widget.place.openDays,
                             style: informationTextStyle,
                           ),
                           Expanded(
@@ -96,7 +114,7 @@ class DetailWebPage extends StatelessWidget {
                           Icon(Icons.access_time),
                           SizedBox(width: 10),
                           Text(
-                            place.openTime,
+                            widget.place.openTime,
                             style: informationTextStyle,
                           ),
                         ],
@@ -107,7 +125,7 @@ class DetailWebPage extends StatelessWidget {
                           Icon(Icons.currency_exchange),
                           SizedBox(width: 10),
                           Text(
-                            place.ticketPrice,
+                            widget.place.ticketPrice,
                             style: informationTextStyle,
                           ),
                         ],
@@ -115,7 +133,7 @@ class DetailWebPage extends StatelessWidget {
                       Container(
                         margin: EdgeInsets.symmetric(vertical: 25),
                         child: Text(
-                          place.description,
+                          widget.place.description,
                           textAlign: TextAlign.justify,
                         ),
                       ),
